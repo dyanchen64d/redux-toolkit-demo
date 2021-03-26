@@ -1,12 +1,12 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import { Middleware } from 'redux';
 import counterReducer from '../features/counter/counterSlice';
+import counterReducer2 from '../features/counter2/counterReducer2';
 
 const middlewares: any[] = [];
 
-const logIsMiddlemare: Middleware = (storeAPI) => next => action => {
-  console.log('middleware action', action);
-  console.log('storeAPI', storeAPI)
+const logIsMiddlemare: Middleware = stateApi => next => action => {
+  console.log('getState', stateApi.getState());
   return next(action);
 }
 
@@ -14,7 +14,8 @@ middlewares.push(logIsMiddlemare);
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer
+    counter: counterReducer,
+    counter2: counterReducer2
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     thunk: {

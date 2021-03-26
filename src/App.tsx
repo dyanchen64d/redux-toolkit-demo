@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import { Counter } from './features/counter/Counter';
+import { Counter2 } from './features/counter2/couter2';
 import './App.css';
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <Counter />
+        <Counter2 />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
