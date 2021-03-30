@@ -32,7 +32,7 @@ const counterReducer2 = createReducer(initialState, {
   }
 })
 
-export const incrementAsync = (amount: number): AppThunk => (dispatch, getState, extraArgument) => {
+export const incrementAsync = (amount: number): AppThunk => (dispatch, _getState, extraArgument) => {
   console.log('incrementAsync', extraArgument);
   setTimeout(() => {
     dispatch(incrementByAmount(amount));
@@ -40,9 +40,9 @@ export const incrementAsync = (amount: number): AppThunk => (dispatch, getState,
 };
 
 const doTimeout = () => {
-  return new Promise((resolve, reject) => {
+  return new Promise<void>(resolve => {
     setTimeout(() => {
-      resolve('');
+      resolve();
     }, 1000);
   })
 }
