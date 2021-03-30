@@ -6,6 +6,7 @@ import {
   incrementByAmount,
   incrementAsync,
   selectCount,
+  decrementPromise
 } from './counterReducer2';
 import styles from './counter2.module.css';
 
@@ -53,6 +54,12 @@ export function Counter2() {
           onClick={() => dispatch(incrementAsync(Number(incrementAmount) || 0))}
         >
           Add Async
+        </button>
+        <button
+          className={styles.asyncButton}
+          onClick={() => dispatch(decrementPromise())}
+        >
+          Decrement Promise
         </button>
       </div>
     </div>
