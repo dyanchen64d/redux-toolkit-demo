@@ -1,16 +1,25 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import { Middleware } from 'redux';
+import { configureStore, ThunkAction } from '@reduxjs/toolkit';
+import { Middleware, AnyAction } from 'redux';
 import counterReducer from '../features/counter/counterSlice';
 import counterReducer2 from '../features/counter2/counterReducer2';
 
-const middlewares: any[] = [];
+const middlewares: Middleware[] = [];
 
-const logIsMiddlemare: Middleware = stateApi => next => action => {
-  console.log('getState', stateApi.getState());
+const logInMiddleware: Middleware = stateApi => next => action => {
+  console.log('log in middleware');
   return next(action);
 }
 
-middlewares.push(logIsMiddlemare);
+middlewares.push(logInMiddleware);
+
+interface ExtraArgument {
+  [key: string]: string;
+}
+
+const extraArgument: ExtraArgument = {
+  extra: 'extra',
+  payload: 'payload'
+}
 
 export const store = configureStore({
   reducer: {
@@ -19,20 +28,16 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     thunk: {
-      extraArgument: {
-        payload: {
-          payload1: 'payload1',
-          payload2: 'payload2'
-        }
-      }
+      extraArgument
     }
   }).concat(middlewares)
 });
 
 export type RootState = ReturnType<typeof store.getState>;
+
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
   RootState,
-  unknown,
-  Action<string>
+  ExtraArgument, // extraArgument
+  AnyAction
 >;

@@ -27,8 +27,7 @@ const counterReducer2 = createReducer(initialState, {
     state.value = state.value - 1;
   },
   [incrementByAmount.type]: (state, action) => {
-    console.log('incrementByAmount', action.payload)
-    // state.value += action.payload;
+    state.value += action.payload;
   }
 })
 
